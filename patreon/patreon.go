@@ -19,34 +19,34 @@ var (
 	InvalidSignature   = errors.New("signature does not match")
 )
 
-func ValidateRequest(r *http.Request, secret string) (b []byte, err error) {
+func ValidateRequest(r *http.Request, secret string) (b []byte, event string, err error) {
 
-	event := r.Header.Get("X-Patreon-Event")
+	event = r.Header.Get("X-Patreon-Event")
 	signature := r.Header.Get("X-Patreon-Signature")
 
 	if event == "" || signature == "" {
-		return b, InvalidHeaders
+		return b, event, InvalidHeaders
 	}
 
 	b, err = ioutil.ReadAll(r.Body)
 	if err != nil {
-		return b, err
+		return b, event, err
 	}
 
 	hash := hmac.New(md5.New, []byte(secret))
 	_, err = hash.Write(b)
 	if err != nil {
-		return b, err
+		return b, event, err
 	}
 
 	sum := hash.Sum(nil)
 	expectedSignature := hex.EncodeToString(sum)
 
 	if expectedSignature != signature {
-		return b, InvalidSignature
+		return b, event, InvalidSignature
 	}
 
-	return b, nil
+	return b, event, nil
 }
 
 func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
