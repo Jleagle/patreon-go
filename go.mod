@@ -1,4 +1,4 @@
-module patreon-go
+module github.com/Jleagle/patreon-go
 
 go 1.12
 
