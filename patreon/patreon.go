@@ -176,54 +176,6 @@ type Data struct {
 	Type string `json:"type"`
 }
 
-type Goal struct {
-	Attributes struct {
-		AmountCents         int       `json:"amount_cents"`
-		CompletedPercentage int       `json:"completed_percentage"`
-		CreatedAt           time.Time `json:"created_at"`
-		Description         string    `json:"description"`
-		ReachedAt           time.Time `json:"reached_at"`
-		Title               string    `json:"title"`
-	} `json:"attributes"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
-}
-
-type Reward struct {
-	Attributes struct {
-		Amount           int            `json:"amount"`
-		AmountCents      int            `json:"amount_cents"`
-		CreatedAt        time.Time      `json:"created_at"`
-		Description      string         `json:"description"`
-		DiscordRoleIds   []string       `json:"discord_role_ids"`
-		EditedAt         time.Time      `json:"edited_at"`
-		ImageURL         ctypes.CString `json:"image_url"`
-		PatronCount      int            `json:"patron_count"`
-		PostCount        int            `json:"post_count"`
-		Published        bool           `json:"published"`
-		PublishedAt      time.Time      `json:"published_at"`
-		Remaining        interface{}    `json:"remaining"`
-		RequiresShipping bool           `json:"requires_shipping"`
-		Title            string         `json:"title"`
-		UnpublishedAt    time.Time      `json:"unpublished_at"`
-		URL              string         `json:"url"`
-		UserLimit        interface{}    `json:"user_limit"`
-	} `json:"attributes"`
-	ID            string `json:"id"`
-	Relationships struct {
-		Campaign struct {
-			Data struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data"`
-			Links struct {
-				Related string `json:"related"`
-			} `json:"links"`
-		} `json:"campaign"`
-	} `json:"relationships"`
-	Type string `json:"type"`
-}
-
 type User struct {
 	Attributes struct {
 		About              string         `json:"about"`
@@ -349,5 +301,53 @@ type Campaign struct {
 			} `json:"data"`
 		} `json:"rewards"`
 	} `json:"relationships"`
+	Type string `json:"type"`
+}
+
+type Reward struct {
+	Attributes struct {
+		Amount           int            `json:"amount"`
+		AmountCents      int            `json:"amount_cents"`
+		CreatedAt        time.Time      `json:"created_at"`
+		Description      string         `json:"description"`
+		DiscordRoleIds   []string       `json:"discord_role_ids"`
+		EditedAt         time.Time      `json:"edited_at"`
+		ImageURL         ctypes.CString `json:"image_url"`
+		PatronCount      int            `json:"patron_count"`
+		PostCount        int            `json:"post_count"`
+		Published        bool           `json:"published"`
+		PublishedAt      time.Time      `json:"published_at"`
+		Remaining        interface{}    `json:"remaining"`
+		RequiresShipping bool           `json:"requires_shipping"`
+		Title            string         `json:"title"`
+		UnpublishedAt    time.Time      `json:"unpublished_at"`
+		URL              string         `json:"url"`
+		UserLimit        interface{}    `json:"user_limit"`
+	} `json:"attributes"`
+	ID            string `json:"id"`
+	Relationships struct {
+		Campaign struct {
+			Data struct {
+				ID   string `json:"id"`
+				Type string `json:"type"`
+			} `json:"data"`
+			Links struct {
+				Related string `json:"related"`
+			} `json:"links"`
+		} `json:"campaign"`
+	} `json:"relationships"`
+	Type string `json:"type"`
+}
+
+type Goal struct {
+	Attributes struct {
+		AmountCents         int       `json:"amount_cents"`
+		CompletedPercentage int       `json:"completed_percentage"`
+		CreatedAt           time.Time `json:"created_at"`
+		Description         string    `json:"description"`
+		ReachedAt           time.Time `json:"reached_at"`
+		Title               string    `json:"title"`
+	} `json:"attributes"`
+	ID   string `json:"id"`
 	Type string `json:"type"`
 }
