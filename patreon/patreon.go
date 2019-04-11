@@ -51,12 +51,20 @@ func ValidateRequest(r *http.Request, secret string) (b []byte, event string, er
 
 func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 
+	// Get `data` and `links`
 	err = json.Unmarshal(b, &pwr)
 	if err != nil {
 		return pwr, err
 	}
 
-	for _, v := range pwr.Raw {
+	// Get `included`
+	included := Included{}
+	err = json.Unmarshal(b, &included)
+	if err != nil {
+		return pwr, err
+	}
+
+	for _, v := range included.Included {
 
 		typ := Type{}
 		err = json.Unmarshal(v, &typ)
@@ -110,18 +118,23 @@ func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 	return pwr, nil
 }
 
+// Temporary
 type Type struct {
 	Type string `json:"type"`
+}
+
+// Temporary
+type Included struct {
+	Included []json.RawMessage `json:"included"`
 }
 
 type Webhook struct {
 	Data     Data              `json:"data"`
 	Links    map[string]string `json:"links"`
-	Raw      []json.RawMessage `json:"included"`
-	Campaign Campaign          ``
-	User     User              ``
-	Goals    []Goal            ``
-	Rewards  []Reward          ``
+	Campaign Campaign          `json:"-"`
+	User     User              `json:"-"`
+	Goals    []Goal            `json:"-"`
+	Rewards  []Reward          `json:"-"`
 }
 
 type Data struct {
