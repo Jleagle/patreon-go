@@ -19,6 +19,7 @@ var (
 	InvalidSignature   = errors.New("signature does not match")
 )
 
+//noinspection GoUnusedExportedFunction
 func ValidateRequest(r *http.Request, secret string) (b []byte, event string, err error) {
 
 	event = r.Header.Get("X-Patreon-Event")
@@ -49,6 +50,7 @@ func ValidateRequest(r *http.Request, secret string) (b []byte, event string, er
 	return b, event, nil
 }
 
+//noinspection GoUnusedExportedFunction
 func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 
 	// Get `data` and `links`
