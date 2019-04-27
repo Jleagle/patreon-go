@@ -60,7 +60,7 @@ func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 	}
 
 	// Get `included`
-	included := Included{}
+	included := includedRaw{}
 	err = json.Unmarshal(b, &included)
 	if err != nil {
 		return pwr, err
@@ -68,7 +68,7 @@ func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 
 	for _, v := range included.Included {
 
-		typ := Type{}
+		typ := includedType{}
 		err = json.Unmarshal(v, &typ)
 		if err != nil {
 			return pwr, err
@@ -120,13 +120,11 @@ func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 	return pwr, nil
 }
 
-// Temporary
-type Type struct {
+type includedType struct {
 	Type string `json:"type"`
 }
 
-// Temporary
-type Included struct {
+type includedRaw struct {
 	Included []json.RawMessage `json:"included"`
 }
 
