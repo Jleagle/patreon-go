@@ -139,17 +139,17 @@ type Webhook struct {
 
 type Data struct {
 	Attributes struct {
-		FullName                string      `json:"full_name"`
-		IsFollower              bool        `json:"is_follower"`
-		LastChargeDate          time.Time   `json:"last_charge_date"`
-		LastChargeStatus        string      `json:"last_charge_status"`
-		LifetimeSupportCents    int         `json:"lifetime_support_cents"`
-		PatronStatus            string      `json:"patron_status"`
-		PledgeAmountCents       int         `json:"pledge_amount_cents"`
-		PledgeCapAmountCents    ctypes.CInt `json:"pledge_cap_amount_cents"`
-		PledgeRelationshipStart time.Time   `json:"pledge_relationship_start"`
+		FullName                string     `json:"full_name"`
+		IsFollower              bool       `json:"is_follower"`
+		LastChargeDate          time.Time  `json:"last_charge_date"`
+		LastChargeStatus        string     `json:"last_charge_status"`
+		LifetimeSupportCents    int        `json:"lifetime_support_cents"`
+		PatronStatus            string     `json:"patron_status"`
+		PledgeAmountCents       int        `json:"pledge_amount_cents"`
+		PledgeCapAmountCents    ctypes.Int `json:"pledge_cap_amount_cents"`
+		PledgeRelationshipStart time.Time  `json:"pledge_relationship_start"`
 	} `json:"attributes"`
-	ID            ctypes.CInt64 `json:"id"`
+	ID            ctypes.Int64 `json:"id"`
 	Relationships struct {
 		Address struct {
 			Data interface{} `json:"data"`
@@ -178,32 +178,32 @@ type Data struct {
 
 type User struct {
 	Attributes struct {
-		About              string         `json:"about"`
-		CanSeeNsfw         bool           `json:"can_see_nsfw"`
-		Created            time.Time      `json:"created"`
-		DefaultCountryCode interface{}    `json:"default_country_code"`
-		DiscordID          string         `json:"discord_id"`
-		Email              string         `json:"email"`
-		Facebook           ctypes.CString `json:"facebook"`
-		FacebookID         ctypes.CInt64  `json:"facebook_id"`
-		FirstName          string         `json:"first_name"`
-		FullName           string         `json:"full_name"`
-		Gender             int            `json:"gender"`
-		HasPassword        bool           `json:"has_password"`
-		ImageURL           string         `json:"image_url"`
-		IsDeleted          bool           `json:"is_deleted"`
-		IsEmailVerified    bool           `json:"is_email_verified"`
-		IsNuked            bool           `json:"is_nuked"`
-		IsSuspended        bool           `json:"is_suspended"`
-		LastName           string         `json:"last_name"`
+		About              string        `json:"about"`
+		CanSeeNsfw         bool          `json:"can_see_nsfw"`
+		Created            time.Time     `json:"created"`
+		DefaultCountryCode interface{}   `json:"default_country_code"`
+		DiscordID          string        `json:"discord_id"`
+		Email              string        `json:"email"`
+		Facebook           ctypes.String `json:"facebook"`
+		FacebookID         ctypes.Int64  `json:"facebook_id"`
+		FirstName          string        `json:"first_name"`
+		FullName           string        `json:"full_name"`
+		Gender             int           `json:"gender"`
+		HasPassword        bool          `json:"has_password"`
+		ImageURL           string        `json:"image_url"`
+		IsDeleted          bool          `json:"is_deleted"`
+		IsEmailVerified    bool          `json:"is_email_verified"`
+		IsNuked            bool          `json:"is_nuked"`
+		IsSuspended        bool          `json:"is_suspended"`
+		LastName           string        `json:"last_name"`
 		SocialConnections  struct {
-			Deviantart ctypes.CString `json:"deviantart"`
+			Deviantart ctypes.String `json:"deviantart"`
 			Discord    struct {
-				Scopes []string       `json:"scopes"`
-				URL    ctypes.CString `json:"url"`
-				UserID string         `json:"user_id"`
+				Scopes []string      `json:"scopes"`
+				URL    ctypes.String `json:"url"`
+				UserID string        `json:"user_id"`
 			} `json:"discord"`
-			Facebook  ctypes.CString `json:"facebook"`
+			Facebook  ctypes.String `json:"facebook"`
 			Instagram struct {
 				Scopes []string `json:"scopes"`
 				URL    string   `json:"url"`
@@ -214,20 +214,20 @@ type User struct {
 				URL    string   `json:"url"`
 				UserID string   `json:"user_id"`
 			} `json:"reddit"`
-			Spotify ctypes.CString `json:"spotify"`
-			Twitch  ctypes.CString `json:"twitch"`
+			Spotify ctypes.String `json:"spotify"`
+			Twitch  ctypes.String `json:"twitch"`
 			Twitter struct {
 				URL    string `json:"url"`
 				UserID string `json:"user_id"`
 			} `json:"twitter"`
-			Youtube ctypes.CString `json:"youtube"`
+			Youtube ctypes.String `json:"youtube"`
 		} `json:"social_connections"`
-		ThumbURL string         `json:"thumb_url"`
-		Twitch   ctypes.CString `json:"twitch"`
-		Twitter  ctypes.CString `json:"twitter"`
-		URL      string         `json:"url"`
-		Vanity   string         `json:"vanity"`
-		Youtube  ctypes.CString `json:"youtube"`
+		ThumbURL string        `json:"thumb_url"`
+		Twitch   ctypes.String `json:"twitch"`
+		Twitter  ctypes.String `json:"twitter"`
+		URL      string        `json:"url"`
+		Vanity   string        `json:"vanity"`
+		Youtube  ctypes.String `json:"youtube"`
 	} `json:"attributes"`
 	ID            string `json:"id"`
 	Relationships struct {
@@ -246,36 +246,36 @@ type User struct {
 
 type Campaign struct {
 	Attributes struct {
-		AvatarPhotoURL                string         `json:"avatar_photo_url"`
-		CoverPhotoURL                 string         `json:"cover_photo_url"`
-		CreatedAt                     time.Time      `json:"created_at"`
-		CreationCount                 int            `json:"creation_count"`
-		CreationName                  string         `json:"creation_name"`
-		DiscordServerID               string         `json:"discord_server_id"`
-		DisplayPatronGoals            bool           `json:"display_patron_goals"`
-		EarningsVisibility            string         `json:"earnings_visibility"`
-		ImageSmallURL                 string         `json:"image_small_url"`
-		ImageURL                      string         `json:"image_url"`
-		IsChargeUpfront               bool           `json:"is_charge_upfront"`
-		IsChargedImmediately          bool           `json:"is_charged_immediately"`
-		IsMonthly                     bool           `json:"is_monthly"`
-		IsNsfw                        bool           `json:"is_nsfw"`
-		IsPlural                      bool           `json:"is_plural"`
-		MainVideoEmbed                ctypes.CString `json:"main_video_embed"`
-		MainVideoURL                  ctypes.CString `json:"main_video_url"`
-		Name                          string         `json:"name"`
-		OneLiner                      ctypes.CString `json:"one_liner"`
-		OutstandingPaymentAmountCents int            `json:"outstanding_payment_amount_cents"`
-		PatronCount                   int            `json:"patron_count"`
-		PayPerName                    string         `json:"pay_per_name"`
-		PledgeSum                     int            `json:"pledge_sum"`
-		PledgeURL                     string         `json:"pledge_url"`
-		PublishedAt                   time.Time      `json:"published_at"`
-		Summary                       string         `json:"summary"`
-		ThanksEmbed                   ctypes.CString `json:"thanks_embed"`
-		ThanksMsg                     ctypes.CString `json:"thanks_msg"`
-		ThanksVideoURL                ctypes.CString `json:"thanks_video_url"`
-		URL                           string         `json:"url"`
+		AvatarPhotoURL                string        `json:"avatar_photo_url"`
+		CoverPhotoURL                 string        `json:"cover_photo_url"`
+		CreatedAt                     time.Time     `json:"created_at"`
+		CreationCount                 int           `json:"creation_count"`
+		CreationName                  string        `json:"creation_name"`
+		DiscordServerID               string        `json:"discord_server_id"`
+		DisplayPatronGoals            bool          `json:"display_patron_goals"`
+		EarningsVisibility            string        `json:"earnings_visibility"`
+		ImageSmallURL                 string        `json:"image_small_url"`
+		ImageURL                      string        `json:"image_url"`
+		IsChargeUpfront               bool          `json:"is_charge_upfront"`
+		IsChargedImmediately          bool          `json:"is_charged_immediately"`
+		IsMonthly                     bool          `json:"is_monthly"`
+		IsNsfw                        bool          `json:"is_nsfw"`
+		IsPlural                      bool          `json:"is_plural"`
+		MainVideoEmbed                ctypes.String `json:"main_video_embed"`
+		MainVideoURL                  ctypes.String `json:"main_video_url"`
+		Name                          string        `json:"name"`
+		OneLiner                      ctypes.String `json:"one_liner"`
+		OutstandingPaymentAmountCents int           `json:"outstanding_payment_amount_cents"`
+		PatronCount                   int           `json:"patron_count"`
+		PayPerName                    string        `json:"pay_per_name"`
+		PledgeSum                     int           `json:"pledge_sum"`
+		PledgeURL                     string        `json:"pledge_url"`
+		PublishedAt                   time.Time     `json:"published_at"`
+		Summary                       string        `json:"summary"`
+		ThanksEmbed                   ctypes.String `json:"thanks_embed"`
+		ThanksMsg                     ctypes.String `json:"thanks_msg"`
+		ThanksVideoURL                ctypes.String `json:"thanks_video_url"`
+		URL                           string        `json:"url"`
 	} `json:"attributes"`
 	ID            string `json:"id"`
 	Relationships struct {
@@ -306,23 +306,23 @@ type Campaign struct {
 
 type Reward struct {
 	Attributes struct {
-		Amount           int            `json:"amount"`
-		AmountCents      int            `json:"amount_cents"`
-		CreatedAt        time.Time      `json:"created_at"`
-		Description      string         `json:"description"`
-		DiscordRoleIds   []string       `json:"discord_role_ids"`
-		EditedAt         time.Time      `json:"edited_at"`
-		ImageURL         ctypes.CString `json:"image_url"`
-		PatronCount      int            `json:"patron_count"`
-		PostCount        int            `json:"post_count"`
-		Published        bool           `json:"published"`
-		PublishedAt      time.Time      `json:"published_at"`
-		Remaining        interface{}    `json:"remaining"`
-		RequiresShipping bool           `json:"requires_shipping"`
-		Title            string         `json:"title"`
-		UnpublishedAt    time.Time      `json:"unpublished_at"`
-		URL              string         `json:"url"`
-		UserLimit        interface{}    `json:"user_limit"`
+		Amount           int           `json:"amount"`
+		AmountCents      int           `json:"amount_cents"`
+		CreatedAt        time.Time     `json:"created_at"`
+		Description      string        `json:"description"`
+		DiscordRoleIds   []string      `json:"discord_role_ids"`
+		EditedAt         time.Time     `json:"edited_at"`
+		ImageURL         ctypes.String `json:"image_url"`
+		PatronCount      int           `json:"patron_count"`
+		PostCount        int           `json:"post_count"`
+		Published        bool          `json:"published"`
+		PublishedAt      time.Time     `json:"published_at"`
+		Remaining        interface{}   `json:"remaining"`
+		RequiresShipping bool          `json:"requires_shipping"`
+		Title            string        `json:"title"`
+		UnpublishedAt    time.Time     `json:"unpublished_at"`
+		URL              string        `json:"url"`
+		UserLimit        interface{}   `json:"user_limit"`
 	} `json:"attributes"`
 	ID            string `json:"id"`
 	Relationships struct {
