@@ -2,4 +2,4 @@ module github.com/Jleagle/patreon-go
 
 go 1.12
 
-require github.com/Jleagle/unmarshal-go v0.0.0-20190220084824-1808d9beaef9
+require github.com/Jleagle/unmarshal-go v0.0.0-20200116191647-13e1e592d576
