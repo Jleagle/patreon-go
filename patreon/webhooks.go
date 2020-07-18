@@ -20,7 +20,7 @@ var (
 )
 
 //noinspection GoUnusedExportedFunction
-func ValidateRequest(r *http.Request, secret string) (b []byte, event string, err error) {
+func Validate(r *http.Request, secret string) (b []byte, event string, err error) {
 
 	event = r.Header.Get("X-Patreon-Event")
 	signature := r.Header.Get("X-Patreon-Signature")
@@ -51,7 +51,7 @@ func ValidateRequest(r *http.Request, secret string) (b []byte, event string, er
 }
 
 //noinspection GoUnusedExportedFunction
-func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
+func Unmarshal(b []byte) (pwr Webhook, err error) {
 
 	// Get `data` and `links`
 	err = json.Unmarshal(b, &pwr)
