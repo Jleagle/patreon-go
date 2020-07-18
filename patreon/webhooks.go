@@ -102,6 +102,15 @@ func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 			}
 			pwr.Rewards = append(pwr.Rewards, reward)
 
+		case "tier":
+
+			tier := Tier{}
+			err = json.Unmarshal(v, &tier)
+			if err != nil {
+				return pwr, err
+			}
+			pwr.Tiers = append(pwr.Tiers, tier)
+
 		case "goal":
 
 			goal := Goal{}
@@ -135,6 +144,7 @@ type Webhook struct {
 	User     User              `json:"-"`
 	Goals    []Goal            `json:"-"`
 	Rewards  []Reward          `json:"-"`
+	Tiers    []Tier            `json:"-"`
 }
 
 type Data struct {
@@ -321,6 +331,29 @@ type Campaign struct {
 		} `json:"rewards"`
 	} `json:"relationships"`
 	Type string `json:"type"`
+}
+
+type Tier struct {
+	Attributes struct {
+		AmountCents      int           `json:"amount_cents"`
+		CreatedAt        time.Time     `json:"created_at"`
+		Description      string        `json:"description"`
+		DiscordRoleIds   []string      `json:"discord_role_ids"`
+		EditedAt         time.Time     `json:"edited_at"`
+		ImageURL         ctypes.String `json:"image_url"`
+		PatronCount      int           `json:"patron_count"`
+		PostCount        int           `json:"post_count"`
+		Published        bool          `json:"published"`
+		PublishedAt      time.Time     `json:"published_at"`
+		Remaining        interface{}   `json:"remaining"`
+		RequiresShipping bool          `json:"requires_shipping"`
+		Title            string        `json:"title"`
+		UnpublishedAt    interface{}   `json:"unpublished_at"`
+		URL              string        `json:"url"`
+		UserLimit        interface{}   `json:"user_limit"`
+	} `json:"attributes"`
+	ID   ctypes.Int `json:"id"`
+	Type string     `json:"type"`
 }
 
 type Reward struct {
