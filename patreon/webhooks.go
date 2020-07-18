@@ -77,39 +77,39 @@ func UnmarshalBytes(b []byte) (pwr Webhook, err error) {
 		switch typ.Type {
 		case "campaign":
 
-			include := Campaign{}
-			err = json.Unmarshal(v, &include)
+			campaign := Campaign{}
+			err = json.Unmarshal(v, &campaign)
 			if err != nil {
 				return pwr, err
 			}
-			pwr.Campaign = include
+			pwr.Campaign = campaign
 
 		case "user":
 
-			include := User{}
-			err = json.Unmarshal(v, &include)
+			user := User{}
+			err = json.Unmarshal(v, &user)
 			if err != nil {
 				return pwr, err
 			}
-			pwr.User = include
+			pwr.User = user
 
 		case "reward":
 
-			include := Reward{}
-			err = json.Unmarshal(v, &include)
+			reward := Reward{}
+			err = json.Unmarshal(v, &reward)
 			if err != nil {
 				return pwr, err
 			}
-			pwr.Rewards = append(pwr.Rewards, include)
+			pwr.Rewards = append(pwr.Rewards, reward)
 
 		case "goal":
 
-			include := Goal{}
-			err = json.Unmarshal(v, &include)
+			goal := Goal{}
+			err = json.Unmarshal(v, &goal)
 			if err != nil {
 				return pwr, err
 			}
-			pwr.Goals = append(pwr.Goals, include)
+			pwr.Goals = append(pwr.Goals, goal)
 
 		default:
 
@@ -139,17 +139,21 @@ type Webhook struct {
 
 type Data struct {
 	Attributes struct {
-		FullName                string     `json:"full_name"`
-		IsFollower              bool       `json:"is_follower"`
-		LastChargeDate          time.Time  `json:"last_charge_date"`
-		LastChargeStatus        string     `json:"last_charge_status"`
-		LifetimeSupportCents    int        `json:"lifetime_support_cents"`
-		PatronStatus            string     `json:"patron_status"`
-		PledgeAmountCents       int        `json:"pledge_amount_cents"`
-		PledgeCapAmountCents    ctypes.Int `json:"pledge_cap_amount_cents"`
-		PledgeRelationshipStart time.Time  `json:"pledge_relationship_start"`
+		CurrentlyEntitledAmountCents int         `json:"currently_entitled_amount_cents"`
+		Email                        string      `json:"email"`
+		FullName                     string      `json:"full_name"`
+		IsFollower                   bool        `json:"is_follower"`
+		LastChargeDate               interface{} `json:"last_charge_date"`
+		LastChargeStatus             interface{} `json:"last_charge_status"`
+		LifetimeSupportCents         int         `json:"lifetime_support_cents"`
+		Note                         string      `json:"note"`
+		PatronStatus                 string      `json:"patron_status"`
+		PledgeAmountCents            int         `json:"pledge_amount_cents"`
+		PledgeCapAmountCents         ctypes.Int  `json:"pledge_cap_amount_cents"`
+		PledgeRelationshipStart      time.Time   `json:"pledge_relationship_start"`
+		WillPayAmountCents           int         `json:"will_pay_amount_cents"`
 	} `json:"attributes"`
-	ID            ctypes.Int64 `json:"id"`
+	ID            string `json:"id"`
 	Relationships struct {
 		Address struct {
 			Data interface{} `json:"data"`
@@ -163,6 +167,12 @@ type Data struct {
 				Related string `json:"related"`
 			} `json:"links"`
 		} `json:"campaign"`
+		CurrentlyEntitledTiers struct {
+			Data []struct {
+				ID   string `json:"id"`
+				Type string `json:"type"`
+			} `json:"data"`
+		} `json:"currently_entitled_tiers"`
 		User struct {
 			Data struct {
 				ID   string `json:"id"`
@@ -178,7 +188,7 @@ type Data struct {
 
 type User struct {
 	Attributes struct {
-		About              string        `json:"about"`
+		About              ctypes.String `json:"about"`
 		CanSeeNsfw         bool          `json:"can_see_nsfw"`
 		Created            time.Time     `json:"created"`
 		DefaultCountryCode interface{}   `json:"default_country_code"`
@@ -222,14 +232,17 @@ type User struct {
 			} `json:"twitter"`
 			Youtube ctypes.String `json:"youtube"`
 		} `json:"social_connections"`
-		ThumbURL string        `json:"thumb_url"`
-		Twitch   ctypes.String `json:"twitch"`
-		Twitter  ctypes.String `json:"twitter"`
-		URL      string        `json:"url"`
-		Vanity   string        `json:"vanity"`
-		Youtube  ctypes.String `json:"youtube"`
+		ThumbURL    string        `json:"thumb_url"`
+		Twitch      ctypes.String `json:"twitch"`
+		Twitter     ctypes.String `json:"twitter"`
+		URL         string        `json:"url"`
+		Vanity      ctypes.String `json:"vanity"`
+		Youtube     ctypes.String `json:"youtube"`
+		HidePledges bool          `json:"hide_pledges"`
+		IsCreator   bool          `json:"is_creator"`
+		LikeCount   int           `json:"like_count"`
 	} `json:"attributes"`
-	ID            string `json:"id"`
+	ID            ctypes.Int `json:"id"`
 	Relationships struct {
 		Campaign struct {
 			Data struct {
@@ -254,10 +267,13 @@ type Campaign struct {
 		DiscordServerID               string        `json:"discord_server_id"`
 		DisplayPatronGoals            bool          `json:"display_patron_goals"`
 		EarningsVisibility            string        `json:"earnings_visibility"`
+		GoogleAnalyticsID             string        `json:"google_analytics_id"`
+		HasRss                        bool          `json:"has_rss"`
+		HasSentRssNotify              bool          `json:"has_sent_rss_notify"`
 		ImageSmallURL                 string        `json:"image_small_url"`
 		ImageURL                      string        `json:"image_url"`
-		IsChargeUpfront               bool          `json:"is_charge_upfront"`
 		IsChargedImmediately          bool          `json:"is_charged_immediately"`
+		IsChargeUpfront               bool          `json:"is_charge_upfront"`
 		IsMonthly                     bool          `json:"is_monthly"`
 		IsNsfw                        bool          `json:"is_nsfw"`
 		IsPlural                      bool          `json:"is_plural"`
@@ -271,13 +287,16 @@ type Campaign struct {
 		PledgeSum                     int           `json:"pledge_sum"`
 		PledgeURL                     string        `json:"pledge_url"`
 		PublishedAt                   time.Time     `json:"published_at"`
+		RssArtworkURL                 interface{}   `json:"rss_artwork_url"`
+		RssFeedTitle                  interface{}   `json:"rss_feed_title"`
 		Summary                       string        `json:"summary"`
 		ThanksEmbed                   ctypes.String `json:"thanks_embed"`
 		ThanksMsg                     ctypes.String `json:"thanks_msg"`
 		ThanksVideoURL                ctypes.String `json:"thanks_video_url"`
 		URL                           string        `json:"url"`
+		Vanity                        string        `json:"vanity"`
 	} `json:"attributes"`
-	ID            string `json:"id"`
+	ID            ctypes.Int `json:"id"`
 	Relationships struct {
 		Creator struct {
 			Data struct {
@@ -324,7 +343,7 @@ type Reward struct {
 		URL              string        `json:"url"`
 		UserLimit        interface{}   `json:"user_limit"`
 	} `json:"attributes"`
-	ID            string `json:"id"`
+	ID            ctypes.Int `json:"id"`
 	Relationships struct {
 		Campaign struct {
 			Data struct {
