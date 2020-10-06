@@ -170,8 +170,8 @@ type Data struct {
 		} `json:"address"`
 		Campaign struct {
 			Data struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 			Links struct {
 				Related string `json:"related"`
@@ -179,14 +179,14 @@ type Data struct {
 		} `json:"campaign"`
 		CurrentlyEntitledTiers struct {
 			Data []struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 		} `json:"currently_entitled_tiers"`
 		User struct {
 			Data struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 			Links struct {
 				Related string `json:"related"`
@@ -256,8 +256,8 @@ type User struct {
 	Relationships struct {
 		Campaign struct {
 			Data struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 			Links struct {
 				Related string `json:"related"`
@@ -310,8 +310,8 @@ type Campaign struct {
 	Relationships struct {
 		Creator struct {
 			Data struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 			Links struct {
 				Related string `json:"related"`
@@ -319,14 +319,14 @@ type Campaign struct {
 		} `json:"creator"`
 		Goals struct {
 			Data []struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 		} `json:"goals"`
 		Rewards struct {
 			Data []struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 		} `json:"rewards"`
 	} `json:"relationships"`
@@ -380,8 +380,8 @@ type Reward struct {
 	Relationships struct {
 		Campaign struct {
 			Data struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
+				ID   ctypes.Int `json:"id"`
+				Type string     `json:"type"`
 			} `json:"data"`
 			Links struct {
 				Related string `json:"related"`
@@ -400,6 +400,6 @@ type Goal struct {
 		ReachedAt           time.Time `json:"reached_at"`
 		Title               string    `json:"title"`
 	} `json:"attributes"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	ID   ctypes.Int `json:"id"`
+	Type string     `json:"type"`
 }
